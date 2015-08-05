@@ -4,7 +4,7 @@ This command compares two PHP source files and identifies the names of any
 symbols (classes, functions, methods, properties) which were added, removed,
 or modified.
 
-```
+```bash
 # Compare two files
 php-symbol-diff old.php new.php
 
