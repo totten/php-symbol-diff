@@ -10,4 +10,7 @@ php-symbol-diff old.php new.php
 
 # Compare a file with an older revision in git
 git show abcd1234:/some/file.php | php-symbol-diff /dev/stdin some/file.php
+
+# Compare all the files in different git commits
+git-php-symbol-diff v1.0 v1.1
 ```

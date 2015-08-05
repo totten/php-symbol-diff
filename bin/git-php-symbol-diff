@@ -1,0 +1,35 @@
+#!/bin/bash
+
+function absdirname() {
+  pushd $(dirname $0) >> /dev/null
+    pwd
+  popd >> /dev/null
+}
+
+BINDIR=$(absdirname "$0")
+FROM_COMMIT="$1"
+TO_COMMIT="$2"
+
+if [ -z "$FROM_COMMIT" -o -z "$TO_COMMIT" ]; then
+  echo "Get a list of PHP symbols which changed between two git revisions"
+  echo "usage: $0 <from> <to>"
+  echo "The <from> and <to> may be branches, tags, or commit IDs"
+  exit 1
+fi
+shift 2
+
+git diff --name-only "$FROM_COMMIT..$TO_COMMIT" "$@" | while read file ; do
+    if [ -e "$file" ]; then
+      newfile="$file";
+    else
+      newfile="/dev/null"
+    fi
+  
+    git show "$FROM_COMMIT:$file" > /dev/null 2>&1
+    if [ $? -ne 0 ]; then
+      # the file does not exist
+      "$BINDIR/php-symbol-diff" /dev/null "$file"
+    else
+     git show "$FROM_COMMIT:$file" | "$BINDIR/php-symbol-diff" /dev/stdin "$newfile"
+    fi
+done

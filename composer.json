@@ -13,7 +13,8 @@
          }
     },
     "bin": [
-        "bin/php-symbol-diff"
+        "bin/php-symbol-diff",
+        "bin/git-php-symbol-diff"
     ],
     "config": {
         "bin-dir": "bin"
