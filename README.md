@@ -13,4 +13,7 @@ git show abcd1234:/some/file.php | php-symbol-diff /dev/stdin some/file.php
 
 # Compare all the files in different git commits
 git-php-symbol-diff v1.0 v1.1
+
+# Compare all files in a subdirectory for different git commits
+git-php-symbol-diff v1.0 v1.1 -- my/sub/dir
 ```
