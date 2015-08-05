@@ -1,0 +1,28 @@
+{
+    "name": "totten/php-symbol-diff",
+    "description": "Identify changes in PHP code by symbol (class/method)",
+    "require": {
+        "nikic/php-parser": "^1.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "PhpSymbolDiff\\": "src/"
+         }
+    },
+    "bin": [
+        "bin/php-symbol-diff"
+    ],
+    "config": {
+        "bin-dir": "bin"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tim Otten",
+            "email": "to-git@think.hm"
+        }
+    ]
+}

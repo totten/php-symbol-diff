@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * Func
+ */
+function globfunc() {
+
+}
+
+/**
+ * Classy
+ */
+class Foo_Bar {
+  /**
+   * the data
+   */
+  protected $data;
+
+  /**
+   * Doing it
+   */
+  public function doIt() {}
+
+  /**
+   * The frobnication.
+   */
+  public function frobnicate() {}
+
+}

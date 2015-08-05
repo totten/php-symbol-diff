@@ -1,0 +1,28 @@
+<?php
+namespace Foo;
+
+/**
+ * The Main
+ */
+function theMain($arg) {
+  something();
+}
+
+/**
+ * Bar class
+ */
+class Bar {
+
+  /**
+   * @var array
+   */
+  var $data;
+
+  /**
+   * Do It, Please.
+   */
+  public function doIt() {
+    something();
+  }
+
+}

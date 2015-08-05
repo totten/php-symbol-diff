@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * Func
+ */
+function globfunc() {
+  slick();
+}
+
+/**
+ * Classy
+ */
+class Foo_Bar {
+  /**
+   * the data
+   */
+  protected $data;
+
+  /**
+   * Doing it
+   */
+  public function doIt() {}
+
+}

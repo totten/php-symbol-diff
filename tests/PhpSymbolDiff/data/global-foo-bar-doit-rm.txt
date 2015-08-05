@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * Func
+ */
+function globfunc() {
+
+}
+
+/**
+ * Classy
+ */
+class Foo_Bar {
+  /**
+   * the data
+   */
+  protected $data;
+
+}

@@ -1,0 +1,59 @@
+#!/usr/bin/env php
+<?php
+/*
+ * This file is part of the php-symbol-diff package.
+ *
+ * Copyright (c) Tim Otten <to-git@think.hm>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this package.
+ */
+
+ini_set('display_errors', 1);
+$found = 0;
+$autoloaders = array(
+  dirname(__DIR__) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php',
+  dirname(dirname(dirname(__DIR__))) . DIRECTORY_SEPARATOR . 'autoload.php',
+);
+foreach ($autoloaders as $autoloader) {
+  if (file_exists($autoloader)) {
+    require_once $autoloader;
+    $found = 1;
+    break;
+  }
+}
+if (!$found) {
+  die("Failed to find autoloader");
+}
+main($argv);
+
+function main($argv) {
+  if (empty($argv[1]) || !is_readable($argv[1])) {
+    usage();
+    echo "ERROR: first file is missing or invalid\n";
+    exit(1);
+  }
+  if (empty($argv[2]) || !is_readable($argv[2])) {
+    usage();
+    echo "ERROR: second file is missing or invalid\n";
+    exit(1);
+  }
+
+  try {
+    $differ = new \PhpSymbolDiff\PhpSymbolDiff(file_get_contents($argv[1]), file_get_contents($argv[2]));
+    foreach ($differ->findChangedSymbols() as $symbol) {
+      echo "$symbol\n";
+    }
+  }
+  catch (\PhpParser\Error $e) {
+    echo 'Parse Error: ', $e->getMessage();
+    exit();
+  }
+}
+
+function usage() {
+  echo "Identify the list of classes/functions/properties that differ in two PHP files.\n";
+  echo "\n";
+  echo "usage: php-symbol-diff <file1.php> <file2.php>\n";
+  echo "\n";
+}
