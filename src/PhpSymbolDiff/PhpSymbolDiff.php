@@ -72,10 +72,15 @@ class PhpSymbolDiff {
         }
       }
       elseif ($parentStmt instanceof \PhpParser\Node\Stmt\Namespace_) {
-        $nsName = implode("\\", $parentStmt->name->parts);
+        if (!empty($parentStmt->name->parts)) {
+          $nsName = implode("\\", $parentStmt->name->parts) . "\\";
+        }
+        else {
+          $nsName = '';
+        }
         $nsSymbols = $this->createSymbolTable($parentStmt->stmts);
         foreach ($nsSymbols as $nsSymbol => $childStmt) {
-          $symbols["$nsName\\$nsSymbol"] = $childStmt;
+          $symbols["{$nsName}{$nsSymbol}"] = $childStmt;
         }
       }
       elseif ($parentStmt instanceof \PhpParser\Node\Stmt\Function_) {
