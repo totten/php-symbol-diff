@@ -19,17 +19,9 @@ fi
 shift 2
 
 git diff --name-only "$FROM_COMMIT..$TO_COMMIT" "$@" | while read file ; do
-    if [ -e "$file" ]; then
-      newfile="$file";
-    else
-      newfile="/dev/null"
-    fi
-  
-    git show "$FROM_COMMIT:$file" > /dev/null 2>&1
-    if [ $? -ne 0 ]; then
-      # the file does not exist
-      "$BINDIR/php-symbol-diff" /dev/null "$file"
-    else
-     git show "$FROM_COMMIT:$file" | "$BINDIR/php-symbol-diff" /dev/stdin "$newfile"
-    fi
+
+  "$BINDIR/php-symbol-diff" \
+     <( git show "$FROM_COMMIT:$file" 2>/dev/null ) \
+     <( git show "$TO_COMMIT:$file" 2>/dev/null )
+
 done
