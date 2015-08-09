@@ -18,10 +18,14 @@ if [ -z "$FROM_COMMIT" -o -z "$TO_COMMIT" ]; then
 fi
 shift 2
 
+FROM_TMP=$( php -r 'echo tempnam(sys_get_temp_dir(), "php-symbol-diff-");' )
+TO_TMP=$( php -r 'echo tempnam(sys_get_temp_dir(), "php-symbol-diff-");'  )
+
 git diff --name-only "$FROM_COMMIT..$TO_COMMIT" "$@" | while read file ; do
+  git show "$FROM_COMMIT:$file" 2>/dev/null > "$FROM_TMP"
+  git show "$TO_COMMIT:$file" 2>/dev/null > "$TO_TMP"
 
-  "$BINDIR/php-symbol-diff" \
-     <( git show "$FROM_COMMIT:$file" 2>/dev/null ) \
-     <( git show "$TO_COMMIT:$file" 2>/dev/null )
-
+  "$BINDIR/php-symbol-diff" "$FROM_TMP" "$TO_TMP"
 done
+
+rm -f "$FROM_TMP" "$TO_TMP"
