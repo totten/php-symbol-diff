@@ -17,3 +17,11 @@ git-php-symbol-diff v1.0 v1.1
 # Compare all files in a subdirectory for different git commits
 git-php-symbol-diff v1.0 v1.1 -- my/sub/dir
 ```
+
+## Testing
+
+Run [phpunit](https://phpunit.de/).
+
+> Tests are based on `\PHPUnit_Framework_TestCase`, which is no longer
+> provided by the latest PHPUnit.  The tests have been successfully
+> with PHPUnit 3, 4, and 5.
